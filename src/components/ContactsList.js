@@ -9,16 +9,13 @@ class ContactsList extends React.Component {
 
     handleRandomAdd = () => {
         let randomStar = this.state.tempDaten[Math.floor(Math.random() * contacts.length)]
-        this.setState({
-            tempSlice: [
-                ...this.state.tempSlice,
-                {
-                    name: randomStar.name,
-                    pictureUrl: randomStar.pictureUrl,
-                    popularity: randomStar.popularity,
-                }
-            ]
-        })
+        console.log(randomStar)
+
+        if (!this.state.tempSlice.includes(randomStar)) {
+            this.setState({ tempSlice: [...this.state.tempSlice, randomStar] });
+        } else {
+            return
+        }
     }
 
     hanlseSortByName = () => {
@@ -66,7 +63,6 @@ class ContactsList extends React.Component {
     }
 
     render() {
-
         return <div>
             <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '2% 0' }}>
                 <input onClick={this.handleRandomAdd} type="button" value="Add Random Contact" />
