@@ -5,6 +5,7 @@ class ContactsList extends React.Component {
     state = {
         tempDaten: contacts,
         tempSlice: contacts.slice(0, 5),
+        tempAtoZ: true
     }
 
     handleRandomAdd = () => {
@@ -18,7 +19,7 @@ class ContactsList extends React.Component {
         }
     }
 
-    hanlseSortByName = () => {
+    hanlseSortByNameAZ = () => {
         let temp = this.state.tempSlice
         temp.sort((a, b) => {
             if (a.name > b.name) {
@@ -27,7 +28,19 @@ class ContactsList extends React.Component {
                 return -1
             }
         })
-        this.setState({ tempSlice: temp })
+        this.setState({ tempSlice: temp, tempAtoZ: false })
+    }
+
+    hanlseSortByNameZA = () => {
+        let temp = this.state.tempSlice
+        temp.sort((a, b) => {
+            if (a.name < b.name) {
+                return 1
+            } else {
+                return -1
+            }
+        })
+        this.setState({ tempSlice: temp, tempAtoZ: true })
     }
 
     handleSortByPopularity = () => {
@@ -66,7 +79,8 @@ class ContactsList extends React.Component {
         return <div>
             <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '2% 0' }}>
                 <input onClick={this.handleRandomAdd} type="button" value="Add Random Contact" />
-                <input onClick={this.hanlseSortByName} style={{ margin: '0 1%' }} type="button" value="Sort by Name" />
+                {this.state.tempAtoZ ? <input onClick={this.hanlseSortByNameAZ} style={{ margin: '0 1%' }} type="button" value="Sort by Name A to Z" /> :
+                    <input onClick={this.hanlseSortByNameZA} style={{ margin: '0 1%' }} type="button" value="Sort by Name Z to A" />}
                 <input onClick={this.handleSortByPopularity} type="button" value="Sort by Popularity" />
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
